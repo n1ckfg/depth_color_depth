@@ -1,7 +1,10 @@
 PGraphics tex, depthBuffer, rgbBuffer;
+PFont font;
+int fontSize = 36;
 
 void setup() {
   size(640, 480, P2D);
+  
   rgbImg = loadImage("color.png");
   depthImg = loadImage("depth.png");
 
@@ -11,6 +14,8 @@ void setup() {
 
   setupShaders();
   updateShaders();
+  
+  font = loadFont("DroidSans-48.vlw");
   
   background(0);
   
@@ -27,6 +32,14 @@ void setup() {
   tex.image(rgbImg, width, 0);  
   tex.image(depthBuffer, 0, height);  
   tex.image(rgbBuffer, width, height);  
+  tex.endDraw();
+  
+  tex.beginDraw();
+  tex.textFont(font, fontSize);
+  tex.text("orig", fontSize, fontSize);
+  tex.text("orig", width + fontSize, fontSize);
+  tex.text("copy", fontSize, height + fontSize);
+  tex.text("copy", width + fontSize, height + fontSize);
   tex.endDraw();
 }
 
